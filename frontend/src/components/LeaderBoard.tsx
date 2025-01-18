@@ -4,7 +4,6 @@ import { io } from "socket.io-client";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
