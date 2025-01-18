@@ -32,7 +32,7 @@ const UserSelector = ({ selectedUser, setSelectedUser }: Props) => {
                 className="p-2 border border-gray-300 rounded-md"
             >
                 <option value="">Select a user</option>
-                {users.map((user) => (
+                {Array.isArray(users) && users.map((user) => (
                     <option key={user.id} value={user.id}>
                         {user.name}
                     </option>

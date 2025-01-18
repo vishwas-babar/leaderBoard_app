@@ -1,13 +1,14 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:5000/api/users";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+console.log(API_BASE_URL)
 
-export const fetchUsers = async () => axios.get(`${API_BASE_URL}/get-users`);
+export const fetchUsers = async () => axios.get(`${API_BASE_URL}/api/users/get-users`);
 
 export const claimPoints = async (userId: string) =>
-    axios.post(`${API_BASE_URL}/claim-points`, { userId });
+    axios.post(`${API_BASE_URL}/api/users/claim-points`, { userId });
 
 export const addUser = async (name: string) =>
-    axios.post(`${API_BASE_URL}/create-user`, { name });
+    axios.post(`${API_BASE_URL}/api/users/create-user`, { name });
 
-export const getClaimHistory = async () => axios.get(`${API_BASE_URL}/get-claim-history`)
+export const getClaimHistory = async () => axios.get(`${API_BASE_URL}/api/users/get-claim-history`)

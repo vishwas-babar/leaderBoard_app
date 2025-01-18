@@ -18,7 +18,7 @@ interface User {
     totalPoints: number;
 }
 
-const socket = io("http://localhost:5000");
+const socket = io(import.meta.env.VITE_API_BASE_URL as string);
 
 const Leaderboard: React.FC = () => {
     const [users, setUsers] = useState<User[]>([]);
@@ -58,7 +58,7 @@ const Leaderboard: React.FC = () => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {users.map((user, index) => (
+                        {Array.isArray(users) && users.map((user, index) => (
                             <TableRow key={user.id}>
                                 <TableCell>{index + 1}</TableCell>
                                 <TableCell>{user.name}</TableCell>
