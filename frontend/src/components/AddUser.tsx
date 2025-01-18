@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { addUser } from "../services/api";
 import { io } from "socket.io-client";
 
