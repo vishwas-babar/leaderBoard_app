@@ -1,9 +1,12 @@
 
+import { io } from "socket.io-client";
 import { claimPoints } from "../services/api";
 
 interface Props {
     selectedUser: string;
 }
+
+const socket = io(import.meta.env.VITE_API_BASE_URL as string);
 
 const ClaimButton = ({ selectedUser }: Props) => {
     const handleClaim = async () => {
@@ -13,6 +16,7 @@ const ClaimButton = ({ selectedUser }: Props) => {
 
         try {
             await claimPoints(selectedUser);
+            socket.emit("pointsClaimed");
             alert("Points claimed!");
         } catch (error) {
             console.error("Error claiming points", error);

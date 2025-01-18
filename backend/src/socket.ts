@@ -10,6 +10,16 @@ export const initializeSocket = (server: any) => {
     io.on("connection", (socket) => {
         console.log("Client connected:", socket.id);
 
+        socket.on('pointsClaimed', () => {
+            console.log('point are updated.')
+            io.emit('updateTheData')
+        })
+
+        socket.on('userAdded', () => {
+            console.log('new user added')
+            io.emit('updateTheData')
+        })
+
         socket.on("disconnect", () => {
             console.log("Client disconnected:", socket.id);
         });

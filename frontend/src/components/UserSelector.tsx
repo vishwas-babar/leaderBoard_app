@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchUsers } from "../services/api";
+import { io } from "socket.io-client";
 
 interface User {
     id: string;
@@ -12,6 +13,8 @@ interface Props {
     setSelectedUser: (id: string) => void;
 }
 
+const socket = io(import.meta.env.VITE_API_BASE_URL as string);
+
 const UserSelector = ({ selectedUser, setSelectedUser }: Props) => {
     const [users, setUsers] = useState<User[]>([]);
 
@@ -22,6 +25,14 @@ const UserSelector = ({ selectedUser, setSelectedUser }: Props) => {
 
     useEffect(() => {
         loadUsers();
+
+        socket.on("updateTheData", () => {
+            loadUsers();
+        });
+
+        return () => {
+            socket.off("userAdded");
+        }
     }, []); // Reload when trigger changes
 
     return (

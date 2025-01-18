@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addUser } from "../services/api";
+import { io } from "socket.io-client";
 
+const socket = io(import.meta.env.VITE_API_BASE_URL as string);
 const AddUser = ({ reloadUsers }: { reloadUsers: () => void }) => {
     const [newUserName, setNewUserName] = useState("");
 
     const handleAddUser = async () => {
-
 
         if (!newUserName.trim()) {
             alert("Please enter a valid name.");
@@ -16,11 +17,14 @@ const AddUser = ({ reloadUsers }: { reloadUsers: () => void }) => {
             setNewUserName("");
             alert("User added!");
             reloadUsers(); // Refresh the user list after adding a new user
+            socket.emit("userAdded");
         } catch (error) {
             console.error("Error adding user", error);
             alert('something went wrong!')
         }
     };
+
+    
 
     return (
         <div className="flex flex-col items-center space-y-4">

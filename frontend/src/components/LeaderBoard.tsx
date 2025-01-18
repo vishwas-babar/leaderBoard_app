@@ -35,10 +35,12 @@ const Leaderboard: React.FC = () => {
     useEffect(() => {
         loadLeaderboard();
 
-        socket.on("update", loadLeaderboard);
+        socket.on("updateTheData", () => {
+            loadLeaderboard();
+        });
 
         return () => {
-            socket.off("leaderboardUpdated");
+            socket.off("updateTheData");
         };
     }, []);
 
