@@ -18,6 +18,9 @@ app.use(express.json());
 
 // API routes
 app.use("/api/users", userRouter);
+app.get('/', (req, res) => {
+    res.json({ message: "this is / endpoint" })
+})
 
 // Initialize Socket.io
 initializeSocket(httpServer);
